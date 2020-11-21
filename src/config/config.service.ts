@@ -10,7 +10,6 @@ class ConfigService {
     if (!value && throwOnMissing) {
       throw new Error(`config error - missing env.${key}`);
     }
-
     return value;
   }
 
@@ -40,16 +39,19 @@ class ConfigService {
       password: this.getValue('DB_PASSWORD'),
       database: this.getValue('DB_DATABASE'),
 
-      synchronize: true,
+      synchronize: false,
 
       entities: ['dist/**/*.entity{.ts,.js}'],
+      subscribers: ['src/subscriber/*.js'],
 
       migrationsTableName: 'migration',
 
       migrations: ['dist/migration/*.ts'],
 
       cli: {
+        entitiesDir: 'src/entities',
         migrationsDir: 'src/migration',
+        subscribersDir: 'src/subscriber',
       },
     };
   }
